@@ -12,7 +12,19 @@ public with sharing class SendMultipleEnvelopes {
 
         If ((requests != null) || !requests.isEmpty()){
             SubmitRequest singleRequest = requests.get(0);
+
+        }
+    }
+
+    @AuraEnabled
+    public static string sendEnvelopesMethod(Id recordId, List<String> contactIds){
+        try {
+
+
+
             
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
         }
     }
 
