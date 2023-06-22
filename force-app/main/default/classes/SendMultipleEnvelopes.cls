@@ -4,10 +4,9 @@ public with sharing class SendMultipleEnvelopes {
         label = 'Create Envelopes'
         description = 'Create Envelopes'
     )
-    public SendMultipleEnvelopes() {
+    public static List<GenericResponse> createEnvelopes(List<SubmitRequest> request){
 
     }
-
 
     public class SubmitRequest {
 
