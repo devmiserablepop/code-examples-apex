@@ -6,6 +6,9 @@ public with sharing class SendMultipleEnvelopes {
     )
     public static List<GenericResponse> createEnvelopes(List<SubmitRequest> request){
 
+        List<GenericResponse> responses = new List<GenericResponse>();
+        GenericResponse obResponse = null;
+        String envelopeId = null;
     }
 
     public class SubmitRequest {
