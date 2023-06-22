@@ -24,4 +24,18 @@ public with sharing class SendMultipleEnvelopes {
         public Id sourceRecId;
 
     }
+
+    public class GenericResponse {
+
+        @InvocableVariable (
+            label = 'Error Code'
+            description = 'Error Code'
+        )
+
+        @InvocableVariable (
+            label = 'Error Message'
+            description = 'Error Message'
+        )
+
+    }
 }
