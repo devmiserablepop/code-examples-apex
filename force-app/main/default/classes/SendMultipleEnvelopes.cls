@@ -1,9 +1,9 @@
 public with sharing class SendMultipleEnvelopes {
     
-    @InvocableMethod{
+    @InvocableMethod(
         label = 'Create Envelopes'
         description = 'Create Envelopes'
-    }
+    )
     public SendMultipleEnvelopes() {
 
     }
