@@ -31,11 +31,12 @@ public with sharing class SendMultipleEnvelopes {
             label = 'Error Code'
             description = 'Error Code'
         )
+        public Integer errorCode;
 
         @InvocableVariable (
             label = 'Error Message'
             description = 'Error Message'
         )
-
+        public String errorMessage;
     }
 }
