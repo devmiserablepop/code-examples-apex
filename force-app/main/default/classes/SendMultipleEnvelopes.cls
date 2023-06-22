@@ -4,11 +4,16 @@ public with sharing class SendMultipleEnvelopes {
         label = 'Create Envelopes'
         description = 'Create Envelopes'
     )
-    public static List<GenericResponse> createEnvelopes(List<SubmitRequest> request){
+    public static List<GenericResponse> createEnvelopes(List<SubmitRequest> requests){
 
         List<GenericResponse> responses = new List<GenericResponse>();
         GenericResponse obResponse = null;
         String envelopeId = null;
+
+        If ((requests != null) || !requests.isEmpty()){
+            SubmitRequest singleRequest = requests.get(0);
+            
+        }
     }
 
     public class SubmitRequest {
