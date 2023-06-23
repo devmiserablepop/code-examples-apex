@@ -86,6 +86,16 @@ public with sharing class SendMultipleEnvelopes {
                 } else if (c.Role == 'Quote Signer') {
 
                     quoteContact = c;
+
+                    dfsle.Envelope sowEnvelope = dfsle.EnvelopeService.getEmptyEnvelope(new dfsle.Entity(oppId));
+
+                    dfsle.Recipient quoteContact = dfsle.Recipient.fromSource(
+                        quoteContact.Contact.Name,
+                        quoteContact.Contact.Email,
+                        null,
+                        'SOW Signer',
+                        new dfsle.Entity(quoteContact.Id);
+                    );
                 }
             }
 
