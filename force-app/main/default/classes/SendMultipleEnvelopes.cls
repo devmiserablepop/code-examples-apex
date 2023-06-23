@@ -33,6 +33,9 @@ public with sharing class SendMultipleEnvelopes {
             Id oppId = recordId;
             List<Contact> signers = [SELECT Id, Contact.Email, Contact.Name, Role FROM OpportunityContactRole WHERE OpportunityId = :contactIds WITH SECURITY_ENFORCED];
 
+            List<dfsle.Envelope> envelopes = new List<dfsle.Envelope>();
+
+            dfsle.Envelope ndaEnvelope = dfsle.EnvelopeService.getEmptyEnvelope(new dfsle.Entity(oppId));
 
             
         } catch (Exception e) {
