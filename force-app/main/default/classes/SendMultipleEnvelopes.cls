@@ -43,9 +43,41 @@ public with sharing class SendMultipleEnvelopes {
 
                     ndaContact = c;
 
+                    dfsle.Envelope ndaEnvelope = dfsle.EnvelopeService.getEmptyEnvelope(new dfsle.Entity(oppId));
+
+                    dfsle.Recipient ndaSigner = dfsle.Recipient.fromSource(
+                        ndaContact.Contact.Name,
+                        ndaContact.Contact.Email,
+                        null,
+                        'NDA Signer',
+                        new dfsle.Entity(ndaContact.Id)
+                    );
+
+                    ndaEnvelope = ndaEnvelope.withRecipients(new List<dfsle.Recipient> {ndaSigner});
+
+                    dfsle.UUID ndaTemplateId = dfsle.UUID.parse('fc64b82b-b513-4346-b6b9-4659658a88c3');
+
+                    dfsle.Document ndaDocument = dfsle.Document.fromTemplate(ndaTemplateId, 'NDA Template');
+
+                    ndaEnvelope = ndaEnvelope.withDocuments(new List<dfsle.Document> { ndaDocument });
+
                 } else if (c.Role == 'SOW Signer'){
 
                     sowContact = c;
+
+                    dfsle.Envelope sowEnvelope = dfsle.EnvelopeService.getEmptyEnvelope(new dfsle.Entity(oppId));
+
+                    dfsle.Recipient sowSigner = dfsle.Recipient.fromSource(
+                        sowContact.Contact.Name,
+                        sowContact.Contact.Email,
+                        null,
+                        'SOW Signer',
+                        new dfsle.Entity(sowContact.Id);
+                    );
+
+                    sowEnvelope = sowEnvelope.withRecipients(new List<dfsle.Recipient> {sowSigner});
+
+                    
 
                 } else if (c.Role == 'Quote Signer') {
 
@@ -53,23 +85,7 @@ public with sharing class SendMultipleEnvelopes {
                 }
             }
 
-            dfsle.Envelope ndaEnvelope = dfsle.EnvelopeService.getEmptyEnvelope(new dfsle.Entity(oppId));
-
-            dfsle.Recipient ndaSigner = dfsle.Recipient.fromSource(
-                ndaContact.Contact.Name,
-                ndaContact.Contact.Email,
-                null,
-                'NDA Signer',
-                new dfsle.Entity(ndaContact.Id)
-            );
-
-            ndaEnvelope = ndaEnvelope.withRecipients(new List<dfsle.Recipient> {ndaSigner});
-
-            dfsle.UUID ndaTemplateId = dfsle.UUID.parse('fc64b82b-b513-4346-b6b9-4659658a88c3');
-
-            dfsle.Document ndaDocument = dfsle.Document.fromTemplate(ndaTemplateId, 'NDA Template');
-
-            ndaEnvelope = ndaEnvelope.withDocuments(new List<dfsle.Document> { ndaDocument });
+            
             
             List<dfsle.Envelope> envelopes = new List<dfsle.Envelope>();
 
