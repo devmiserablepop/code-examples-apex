@@ -120,7 +120,7 @@ public with sharing class SendMultipleEnvelopes {
                 } else {
 
                     System.debug('Envelope error: ' + envelope.error);
-                    
+
                 }
             }
             
@@ -160,5 +160,11 @@ public with sharing class SendMultipleEnvelopes {
             description = 'Error Message'
         )
         public String errorMessage;
+
+        @InvocableVariable (
+            label = 'DocuSign Envelope Id'
+            description = 'DocuSign Envelope Id'
+        )
+        public String envelopeId;
     }
 }
