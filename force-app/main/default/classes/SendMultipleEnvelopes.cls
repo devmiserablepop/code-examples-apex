@@ -30,24 +30,46 @@ public with sharing class SendMultipleEnvelopes {
     public static string sendEnvelopesMethod(Id recordId, List<String> contactIds){
         try {
 
-            OpportunityContactRole ndaSigner;
-            OpportunityContactRole sowSigner;
-            OpportunityContactRole quoteSigner;
+            OpportunityContactRole ndaContact;
+            OpportunityContactRole sowContact;
+            OpportunityContactRole quoteContact;
 
             Id oppId = recordId;
-            List<OpportunityContactRole> signers = [SELECT Id, Contact.Email, Contact.Name, Role FROM OpportunityContactRole WHERE OpportunityId = :contactIds WITH SECURITY_ENFORCED];
+            List<OpportunityContactRole> oppContacts = [SELECT Id, Contact.Email, Contact.Name, Role FROM OpportunityContactRole WHERE OpportunityId = :contactIds WITH SECURITY_ENFORCED];
 
-            for (OpportunityContactRole c : signers) {
+            for (OpportunityContactRole c : oppContacts) {
 
                 if (c.Role == 'NDA Signer') {
 
-                    ndaSigner = c.Id;
+                    ndaContact = c;
+
+                } else if (c.Role == 'SOW Signer'){
+
+                    sowContact = c;
+
+                } else if (c.Role == 'Quote Signer') {
+
+                    quoteContact = c;
                 }
             }
+
+            dfsle.Envelope ndaEnvelope = dfsle.EnvelopeService.getEmptyEnvelope(new dfsle.Entity(oppId));
+
+            dfsle.Recipient ndaSigner = dfsle.Recipient.fromSource(
+                ndaContact.Contact.Name,
+                ndaContact.Contact.Email,
+                null,
+                'NDA Signer',
+                new dfsle.Entity(ndaContact.Id)
+            );
+
+            ndaEnvelope = ndaEnvelope.withRecipients(new List<dfsle.Recipient> {ndaSigner});
+
+            
             
             List<dfsle.Envelope> envelopes = new List<dfsle.Envelope>();
 
-            dfsle.Envelope ndaEnvelope = dfsle.EnvelopeService.getEmptyEnvelope(new dfsle.Entity(oppId));
+            
 
             
         } catch (Exception e) {
