@@ -1,18 +1,23 @@
-# Salesforce DX Project: Next Steps
+# Apex Toolkit Examples
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+### Github repo:
 
-## How Do You Plan to Deploy Your Changes?
+This GitHub repo includes code examples for DocuSign's Apex Toolkit. The Apex Toolkit is a set of predefined Apex methods, classes, and utilities that encapsulate a set of the DocuSign eSignature API functionality similar to an SDK, enabling you to integrate DocuSign and Salesforce functionality into your Apex code.
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+## Installation
 
-## Configure Your Salesforce DX Project
+### Prerequisites
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
+1. A free [DocuSign developer account](https://go.docusign.com/o/sandbox/); create one if you don't already have one.
+1. A Salesforce Developer Edition (account).
+1. [Install the Apex Toolkit](https://developers.docusign.com/docs/salesforce/how-to/apex-toolkit-install/). 
+1. Visual Studio Code. Your Visual Studio Code should be set up with the necessary [Salesforce development tools](https://trailhead.salesforce.com/content/learn/projects/set-up-your-lightning-web-components-developer-tools/install-development-tools) including the [Salesforce CLI](https://developer.salesforce.com/tools/sfdxcli). 
+1. The [Salesforce Extension Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=salesforce.salesforcedx-vscode)
 
-## Read All About It
+### Installation steps
 
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+1. Authorize your Salesforce Developer Account within Visual Studio Code. To do this press command + shift + P (on a Mac) or Ctrl + Shift + P (on Windows) to open the Command Palette. Then type SFDX:Authorize an Org and press Enter. In the browser window that opens, log into your Salesforce Developer Organization, then on
+the next screen, click Allow to grant access.
+1. Download or clone the **code-examples-apex** repo.
+1. Replace any placeholder IDs from the example code with template IDs or other IDs corresponding with your DocuSign and Salesforce accounts. 
+1. Deploy the code to Salesforce. To do this, navigate to the force-app/main/default folder in the menu on the left and right-click default, then select SFDX: Deploy Source to Org. Now when you sign into your Salesforce Developer Edition (account) you will find the clases and Lightning Web Components defined in this project.
