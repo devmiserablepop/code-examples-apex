@@ -110,6 +110,19 @@ public with sharing class SendMultipleEnvelopes {
             
             List<dfsle.Envelope> envelopes = new List<dfsle.Envelope>(ndaEnvelope, sowEnvelope, quoteEnvelope);
 
+            List<dfsle.Envelope> sentEnvelopes = new List<dfsle.Envelope>();
+
+            for (dfsle.Envelope e : dfsle.EnvelopeService.sendEnvelopes(envelopes)) {
+
+                if (envelope.error == null) {
+
+                    sentEnvelopes.add(envelope);
+                } else {
+
+                    System.debug('Envelope error: ' + envelope.error);
+                    
+                }
+            }
             
 
             
