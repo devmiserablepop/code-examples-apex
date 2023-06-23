@@ -110,7 +110,7 @@ public with sharing class SendMultipleEnvelopes {
 
             
             
-            List<dfsle.Envelope> envelopes = new List<dfsle.Envelope>();
+            List<dfsle.Envelope> envelopes = new List<dfsle.Envelope>(ndaEnvelope, sowEnvelope, quoteEnvelope);
 
             
 
