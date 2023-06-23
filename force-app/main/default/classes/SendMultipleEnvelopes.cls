@@ -87,15 +87,20 @@ public with sharing class SendMultipleEnvelopes {
 
                     quoteContact = c;
 
-                    dfsle.Envelope sowEnvelope = dfsle.EnvelopeService.getEmptyEnvelope(new dfsle.Entity(oppId));
+                    dfsle.Envelope quoteEnvelope = dfsle.EnvelopeService.getEmptyEnvelope(new dfsle.Entity(oppId));
 
-                    dfsle.Recipient quoteContact = dfsle.Recipient.fromSource(
+                    dfsle.Recipient quoteSigner = dfsle.Recipient.fromSource(
                         quoteContact.Contact.Name,
                         quoteContact.Contact.Email,
                         null,
                         'SOW Signer',
                         new dfsle.Entity(quoteContact.Id);
                     );
+
+                    quoteEnvelope = quoteEnvelope.withRecipients(new List<dfsle.Recipient> {quoteSigner});
+
+
+
                 }
             }
 
