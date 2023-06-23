@@ -77,7 +77,11 @@ public with sharing class SendMultipleEnvelopes {
 
                     sowEnvelope = sowEnvelope.withRecipients(new List<dfsle.Recipient> {sowSigner});
 
-                    
+                    dfsle.UUID sowTemplateId = dfsle.UUID.parse('532f31d7-4d83-4cd1-83e5-900c3b676cc4');
+
+                    dfsle.Document sowDocument = dfsle.Document.fromTemplate(sowTemplateId, 'SOW Template');
+
+                    sowEnvelope = sowEnvelope.withDocuments(new List<dfsle.Document> { sowTemplateId });
 
                 } else if (c.Role == 'Quote Signer') {
 
