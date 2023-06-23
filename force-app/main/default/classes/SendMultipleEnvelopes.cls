@@ -33,7 +33,7 @@ public with sharing class SendMultipleEnvelopes {
             OpportunityContactRole quoteContact;
 
             Id oppId = recordId;
-            List<OpportunityContactRole> oppContacts = [SELECT Id, Contact.Email, Contact.Name, Role FROM OpportunityContactRole WHERE OpportunityId = :contactIds WITH SECURITY_ENFORCED];
+            List<OpportunityContactRole> oppContacts = [SELECT Id, Contact.Email, Contact.Name, Role FROM OpportunityContactRole WHERE OpportunityId = :oppId WITH SECURITY_ENFORCED];
 
             List<dfsle.Envelope> envelopes = new List<dfsle.Envelope>();
 
