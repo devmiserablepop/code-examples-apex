@@ -13,12 +13,11 @@ public with sharing class SendMultipleEnvelopes {
         If ((requests != null) || !requests.isEmpty()){
             SubmitRequest singleRequest = requests.get(0);
 
-            envelopeId = sendEnvelopesMethod(singleRequest.sourceRecId, singleRequest.contactIds);
+            sendEnvelopesMethod(singleRequest.sourceRecId, singleRequest.contactIds);
 
             obResponse = new GenericResponse();
             obResponse.errorCode = 1;
             obResponse.errorMessage = 'None';
-            obResponse.envelopeId = envelopeId;
             responses.add(obResponse);
         }
 
@@ -26,8 +25,7 @@ public with sharing class SendMultipleEnvelopes {
 
     }
 
-    @AuraEnabled
-    public static string sendEnvelopesMethod(Id recordId, List<String> contactIds){
+    public static sendEnvelopesMethod(Id recordId, List<String> contactIds){
         try {
 
             OpportunityContactRole ndaContact;
@@ -36,6 +34,8 @@ public with sharing class SendMultipleEnvelopes {
 
             Id oppId = recordId;
             List<OpportunityContactRole> oppContacts = [SELECT Id, Contact.Email, Contact.Name, Role FROM OpportunityContactRole WHERE OpportunityId = :contactIds WITH SECURITY_ENFORCED];
+
+            List<dfsle.Envelope> envelopes = new List<dfsle.Envelope>();
 
             for (OpportunityContactRole c : oppContacts) {
 
@@ -61,6 +61,8 @@ public with sharing class SendMultipleEnvelopes {
 
                     ndaEnvelope = ndaEnvelope.withDocuments(new List<dfsle.Document> { ndaDocument });
 
+                    envelopes.add(ndaEnvelope);
+
                 } else if (c.Role == 'SOW Signer'){
 
                     sowContact = c;
@@ -72,7 +74,7 @@ public with sharing class SendMultipleEnvelopes {
                         sowContact.Contact.Email,
                         null,
                         'SOW Signer',
-                        new dfsle.Entity(sowContact.Id);
+                        new dfsle.Entity(sowContact.Id)
                     );
 
                     sowEnvelope = sowEnvelope.withRecipients(new List<dfsle.Recipient> {sowSigner});
@@ -82,6 +84,8 @@ public with sharing class SendMultipleEnvelopes {
                     dfsle.Document sowDocument = dfsle.Document.fromTemplate(sowTemplateId, 'SOW Template');
 
                     sowEnvelope = sowEnvelope.withDocuments(new List<dfsle.Document> { sowDocument });
+
+                    envelopes.add(sowEnvelope);
 
                 } else if (c.Role == 'Quote Signer') {
 
@@ -94,7 +98,7 @@ public with sharing class SendMultipleEnvelopes {
                         quoteContact.Contact.Email,
                         null,
                         'SOW Signer',
-                        new dfsle.Entity(quoteContact.Id);
+                        new dfsle.Entity(quoteContact.Id)
                     );
 
                     quoteEnvelope = quoteEnvelope.withRecipients(new List<dfsle.Recipient> {quoteSigner});
@@ -105,21 +109,22 @@ public with sharing class SendMultipleEnvelopes {
 
                     quoteEnvelope = quoteEnvelope.withDocuments(new List<dfsle.Document> { quoteDocument });
 
+                    envelopes.add(quoteEnvelope);
+
                 }
             }
             
-            List<dfsle.Envelope> envelopes = new List<dfsle.Envelope>(ndaEnvelope, sowEnvelope, quoteEnvelope);
 
             List<dfsle.Envelope> sentEnvelopes = new List<dfsle.Envelope>();
 
             for (dfsle.Envelope e : dfsle.EnvelopeService.sendEnvelopes(envelopes)) {
 
-                if (envelope.error == null) {
+                if (e.error == null) {
 
-                    sentEnvelopes.add(envelope);
+                    sentEnvelopes.add(e);
                 } else {
 
-                    System.debug('Envelope error: ' + envelope.error);
+                    System.debug('Envelope error: ' + e.error);
 
                 }
             }
