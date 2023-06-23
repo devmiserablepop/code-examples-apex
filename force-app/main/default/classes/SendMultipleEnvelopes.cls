@@ -25,7 +25,7 @@ public with sharing class SendMultipleEnvelopes {
 
     }
 
-    public static sendEnvelopesMethod(Id recordId, List<String> contactIds){
+    public static void sendEnvelopesMethod(Id recordId, List<String> contactIds){
         try {
 
             OpportunityContactRole ndaContact;
