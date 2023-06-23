@@ -30,9 +30,21 @@ public with sharing class SendMultipleEnvelopes {
     public static string sendEnvelopesMethod(Id recordId, List<String> contactIds){
         try {
 
-            Id oppId = recordId;
-            List<Contact> signers = [SELECT Id, Contact.Email, Contact.Name, Role FROM OpportunityContactRole WHERE OpportunityId = :contactIds WITH SECURITY_ENFORCED];
+            OpportunityContactRole ndaSigner;
+            OpportunityContactRole sowSigner;
+            OpportunityContactRole quoteSigner;
 
+            Id oppId = recordId;
+            List<OpportunityContactRole> signers = [SELECT Id, Contact.Email, Contact.Name, Role FROM OpportunityContactRole WHERE OpportunityId = :contactIds WITH SECURITY_ENFORCED];
+
+            for (OpportunityContactRole c : signers) {
+
+                if (c.Role == 'NDA Signer') {
+
+                    ndaSigner = c.Id;
+                }
+            }
+            
             List<dfsle.Envelope> envelopes = new List<dfsle.Envelope>();
 
             dfsle.Envelope ndaEnvelope = dfsle.EnvelopeService.getEmptyEnvelope(new dfsle.Entity(oppId));
