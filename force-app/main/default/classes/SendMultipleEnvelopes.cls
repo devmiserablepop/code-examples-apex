@@ -1,4 +1,10 @@
 public with sharing class SendMultipleEnvelopes {
+    /**
+     * createEnvelopes method (List)
+     *  Get Opportunity Id and Opportunity Contact Roles from autolaunched flow
+     *  Pass ID and list of contact roles associated to the opportunity to the sendEnvelopesMethod
+     *  
+     */
     
     @InvocableMethod(
         label = 'Create Envelopes'
@@ -6,10 +12,10 @@ public with sharing class SendMultipleEnvelopes {
     )
     public static List<GenericResponse> createEnvelopes(List<SubmitRequest> requests){
 
+        //Intialize GenericResponse list
         List<GenericResponse> responses = new List<GenericResponse>();
         GenericResponse obResponse = null;
-        String envelopeId = null;
-
+        
         If ((requests != null) || !requests.isEmpty()){
             SubmitRequest singleRequest = requests.get(0);
 
@@ -24,6 +30,13 @@ public with sharing class SendMultipleEnvelopes {
         return (responses);
 
     }
+
+    /**
+     * sendEnvelopesMethod (Id and List)
+     *  Based off contact role, create envelope specific to that role
+     *  Add envelopes to list
+     *  Send envelopes 
+     */
 
     public static void sendEnvelopesMethod(Id recordId, List<String> contactIds){
         try {
@@ -168,10 +181,5 @@ public with sharing class SendMultipleEnvelopes {
         )
         public String errorMessage;
 
-        @InvocableVariable (
-            label = 'DocuSign Envelope Id'
-            description = 'DocuSign Envelope Id'
-        )
-        public String envelopeId;
     }
 }
