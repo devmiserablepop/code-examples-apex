@@ -13,7 +13,17 @@ public with sharing class SendMultipleEnvelopes {
         If ((requests != null) || !requests.isEmpty()){
             SubmitRequest singleRequest = requests.get(0);
 
+            envelopeId = sendEnvelopesMethod(singleRequest.sourceRecId, singleRequest.contactIds);
+
+            obResponse = new GenericResponse();
+            obResponse.errorCode = 1;
+            obResponse.errorMessage = 'None';
+            obResponse.envelopeId = envelopeId;
+            responses.add(obResponse);
         }
+
+        return (responses);
+
     }
 
     @AuraEnabled
