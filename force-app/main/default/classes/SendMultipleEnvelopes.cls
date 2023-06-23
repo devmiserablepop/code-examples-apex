@@ -81,7 +81,7 @@ public with sharing class SendMultipleEnvelopes {
 
                     dfsle.Document sowDocument = dfsle.Document.fromTemplate(sowTemplateId, 'SOW Template');
 
-                    sowEnvelope = sowEnvelope.withDocuments(new List<dfsle.Document> { sowTemplateId });
+                    sowEnvelope = sowEnvelope.withDocuments(new List<dfsle.Document> { sowDocument });
 
                 } else if (c.Role == 'Quote Signer') {
 
@@ -99,7 +99,11 @@ public with sharing class SendMultipleEnvelopes {
 
                     quoteEnvelope = quoteEnvelope.withRecipients(new List<dfsle.Recipient> {quoteSigner});
 
+                    dfsle.UUID quoteTemplateId = dfsle.UUID.parse('52221a0e-f6b0-4965-8b2b-8067f4309bcb');
 
+                    dfsle.Document quoteDocument = dfsle.Document.fromTemplate(quoteTemplateId, 'Quote Template');
+
+                    quoteEnvelope = quoteEnvelope.withDocuments(new List<dfsle.Document> { quoteDocument });
 
                 }
             }
