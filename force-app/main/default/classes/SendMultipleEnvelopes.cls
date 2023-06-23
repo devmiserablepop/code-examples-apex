@@ -12,13 +12,15 @@ public with sharing class SendMultipleEnvelopes {
     )
     public static List<GenericResponse> createEnvelopes(List<SubmitRequest> requests){
 
-        //Intialize GenericResponse list
+        //List for error handling
         List<GenericResponse> responses = new List<GenericResponse>();
         GenericResponse obResponse = null;
         
+        //Confirm that requests is not null
         If ((requests != null) || !requests.isEmpty()){
             SubmitRequest singleRequest = requests.get(0);
 
+            // Pass source record Id and list of opportunity contact role Ids
             sendEnvelopesMethod(singleRequest.sourceRecId, singleRequest.contactIds);
 
             obResponse = new GenericResponse();
