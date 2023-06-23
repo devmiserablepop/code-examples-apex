@@ -132,7 +132,9 @@ public with sharing class SendMultipleEnvelopes {
 
             
         } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
+            
+            System.debug('Error: ' + e);
+
         }
     }
 
